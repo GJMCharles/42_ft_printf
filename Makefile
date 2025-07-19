@@ -28,7 +28,8 @@ LIBFT_OBJ := \
 	ft_memcpy.o \
 	ft_bzero.o \
 	ft_memset.o \
-	ft_itoa.o
+	ft_itoa.o \
+	ft_uitoa.o
 
 CFLAGS := -Wall -Wextra -Werror
 
