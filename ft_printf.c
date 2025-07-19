@@ -12,69 +12,58 @@
 
 #include "ft_printf.h"
 
-char	*check_fetch_sign(const char *str, va_list args)
+size_t	fetch_from_signs(size_t *index, const char *str, va_list args)
 {
-	(void) str;
-	(void) args;
-	// char flags[10] = "cspdiuxX%";
-
-	size_t i;
-	// size_t length;
+	size_t		i;
 
 	i = 0;
-	// length = 0;
-	if (str[i] == 'c') return get_char((char) va_arg(args, int));
-	else if (str[i] == 's') return get_string(va_arg(args, char *));
-	else if (str[i] == 'p') return get_pointer((unsigned long int) va_arg(args, unsigned long int));
-	// else if (str[i] == 'd' || str[i] == 'i') {}
-	// else if (str[i] == 'u') {}
-	// else if (str[i] == 'x') {}
-	// else if (str[i] == 'X') {}
-	// else if (str[i] == '%') {}
+	*index += 1;
+	if (str[i] == 'c')
+		return (get_char(va_arg(args, int)));
+	else if (str[i] == 's')
+		return (get_string(va_arg(args, char *)));
+	else if (str[i] == 'p')
+		return (get_pointer(va_arg(args, unsigned long int)));
+	else if (str[i] == 'd' || str[i] == 'i')
+		return (get_integer(va_arg(args, long int)));
+	else if (str[i] == 'u')
+		return (get_uinteger(va_arg(args, unsigned int)));
+	else if (str[i] == 'x')
+		return (get_lower_hexa(va_arg(args, unsigned long int)));
+	else if (str[i] == 'X')
+		return (get_upper_hexa(va_arg(args, unsigned long int)));
+	else if (str[i] == '%')
+		return (get_char((int) '%'));
 	return (0);
 }
 
-char	*printf_buffer(const char *str, size_t len, va_list args)
+size_t	printf_buffer(const char *str, size_t len, va_list args)
 {
-	size_t	i;
-	char	*data;
-	char	*tmp1;
-	char	*tmp2;
+	size_t		i;
+	size_t		size;
 
 	i = 0;
-	data = ft_strdup("");
-	if (!data) return (0);
+	size = 0;
 	while (i < len && str[i])
 	{
-		tmp1 = ft_strdup(data);
-		free(data);
 		if (str[i] == '%')
-		{
-            i += 1;
-            tmp2 = check_fetch_sign(str + i, args);
-		}
-		else tmp2 = get_char((int) str[i]);
-		data = ft_strjoin(tmp1, tmp2);
-		free(tmp1);
-		free(tmp2);
+			size += fetch_from_signs(&i, str + i + 1, args);
+		else
+			size += get_char(str[i]);
 		i += 1;
 	}
-	return (data);
+	return (size);
 }
 
 int	ft_printf(const char *str, ...)
 {
-	va_list args;
-	size_t len;
-	char *data;
+	va_list		args;
+	size_t		size;
 
 	if (!str)
 		return (-1);
-    va_start(args, str);
-    data = printf_buffer(str, ft_strlen(str), args);
-    va_end(args);
-    ft_putstr_fd(data, 1);
-	len = ft_strlen(data);
-    free(data);
-	return (len);
+	va_start(args, str);
+	size = printf_buffer(str, ft_strlen(str), args);
+	va_end(args);
+	return (size);
 }
