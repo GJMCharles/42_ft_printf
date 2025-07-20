@@ -35,7 +35,9 @@ CFLAGS := -Wall -Wextra -Werror
 
 SOURCES := \
 	ft_printf.c \
-	ft_print_format.c
+	ft_print_string.c \
+	ft_print_integer.c \
+	ft_print_hex.c
 
 OBJECTS := $(patsubst %.c,%.o,$(SOURCES))
 
