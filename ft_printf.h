@@ -29,18 +29,4 @@ size_t	print_integer(int nb, short int abs);
 size_t	print_pointer(unsigned long int nb);
 size_t	print_hexadecimal(unsigned long int nb, int uppercase);
 
-// size_t	print_data(void *ptr, char type);
-// char	*get_string(const char *str);
-// char	*get_integer(int nb, int abs);
-
-/*
-size_t	get_pointer(unsigned long int nb);
-char	*get_hex(unsigned long int nb, unsigned short base, int uppercase);
-char	*get_string(const char *str);
-
-
-
-size_t get_hexadecimal(unsigned long int nb, int uppercase);
-*/
-
 #endif // FT_PRINTF_H
