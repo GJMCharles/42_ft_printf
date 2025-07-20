@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static char *get_hex(unsigned long int nb, unsigned short base, int uppercase)
+static char	*get_hex(unsigned long int nb, unsigned short base, int uppercase)
 {
 	char	*ch;
 	char	*prev;
@@ -59,7 +59,7 @@ size_t	print_pointer(unsigned long int nb)
 
 size_t	print_hexadecimal(unsigned long int nb, int uppercase)
 {
-	char *data;
+	char	*data;
 
 	data = get_hex((unsigned int) nb, 16, uppercase);
 	if (!data)
